@@ -5,7 +5,7 @@ suppressPackageStartupMessages({
   library(broom.mixed)
 })
 
-set.seed(490)
+set.seed(42)
 
 in_path <- "outputs/multilevel/multilevel_model_input.csv"
 out_dir <- "outputs/multilevel"

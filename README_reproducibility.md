@@ -4,7 +4,13 @@ This repository contains reproducibility files for the DAT 490 HMDA mortgage app
 
 ## Expected data layout
 
-Do not commit the raw 2023 HMDA LAR file because it is too large. Place the cleaned analytical dataset here:
+Do not commit the raw 2023 HMDA LAR file because it is too large. Place the raw file here:
+
+```text
+data/raw/2023_public_lar_csv.csv
+```
+
+The cleaning script creates the cleaned analytical dataset here:
 
 ```text
 data/processed/hmda_2023_analytical.parquet
@@ -40,10 +46,10 @@ outputs/predictions/heldout_predictions.csv
 | Cross-level interaction term | `multilevel/01_multilevel_analysis.ipynb` + `multilevel/run_multilevel_lme4.R` | `outputs/multilevel/random_slope_fixed_terms.csv` |
 | Figure 9 EB residuals | `multilevel/01_multilevel_analysis.ipynb` + `multilevel/run_multilevel_lme4.R` | `outputs/multilevel/figure9_eb_residuals.csv` |
 | Table 3 HMDA analytical dataset structure | `data/prepare_hmda_dataset.py` | `data/processed/hmda_2023_analytical.parquet` |
-| Table 4 fairness screening | `evaluation/01_evaluation_model_comparison.ipynb` | `outputs/evaluation/table4_fairness_screening_with_ztests.csv` |
-| Table 5 held-out model results | `evaluation/01_evaluation_model_comparison.ipynb` | `outputs/evaluation/table5_heldout_metrics.csv` |
-| Table 5 bootstrap intervals | `evaluation/01_evaluation_model_comparison.ipynb` | `outputs/evaluation/table5_bootstrap_intervals.csv` |
+| Table 4 held-out model results | `evaluation/01_evaluation_model_comparison.ipynb` | `outputs/evaluation/table4_heldout_metrics.csv` |
+| Table 4 bootstrap intervals | `evaluation/01_evaluation_model_comparison.ipynb` | `outputs/evaluation/table4_bootstrap_intervals.csv` |
 | Figure 10 model comparison | `evaluation/01_evaluation_model_comparison.ipynb` | `outputs/evaluation/fig10_model_comparison_recreated.png` |
+| Table 5 fairness screening | `evaluation/01_evaluation_model_comparison.ipynb` | `outputs/evaluation/table5_fairness_screening_with_ztests.csv` |
 | Equalized-odds follow-up | `evaluation/01_evaluation_model_comparison.ipynb` | `outputs/evaluation/equalized_odds_screening_soft_voting.csv` |
 
 ## Running order
@@ -103,7 +109,7 @@ evaluation/01_evaluation_model_comparison.ipynb
 |---|---|
 | Python version | 3.11.x |
 | R version | 4.2 or newer |
-| Random seed | 490 |
+| Random seed | 42 |
 | Train/test split | Stratified 80/20 |
 | Evaluation target | Denied-class probabilities |
 | Bootstrap iterations | 1,000 |
@@ -134,13 +140,14 @@ outputs/multilevel/table2_full_random_intercept.csv
 outputs/multilevel/random_slope_lrt_summary.csv
 outputs/multilevel/random_slope_fixed_terms.csv
 outputs/multilevel/figure9_eb_residuals.csv
-outputs/evaluation/table4_fairness_screening_with_ztests.csv
-outputs/evaluation/table5_heldout_metrics.csv
-outputs/evaluation/table5_bootstrap_intervals.csv
+outputs/evaluation/table4_heldout_metrics.csv
+outputs/evaluation/table4_bootstrap_intervals.csv
 outputs/evaluation/fig10_model_comparison_recreated.png
+outputs/evaluation/table5_fairness_screening_with_ztests.csv
+outputs/evaluation/equalized_odds_screening_soft_voting.csv
 ```
 
-The random-slope LRT output should be based on the random-slope model without the fixed cross-level interaction so that the model comparison has a two-parameter difference. The cross-level interaction estimate is written separately from the interaction model to `random_slope_fixed_terms.csv`.
+The random-slope LRT output is based on the random-slope model without the fixed cross-level interaction so that the model comparison has a two-parameter difference. The cross-level interaction estimate is written separately from the interaction model to `random_slope_fixed_terms.csv`.
 
 ## Final submission tag
 
